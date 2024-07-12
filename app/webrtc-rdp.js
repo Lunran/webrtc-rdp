@@ -628,7 +628,16 @@ class BrowserStreamProvider {
      * @returns {Promise<StreamSpec>}
      */
     async addMediaStream(camera = false, registerStream = true) {
-        let mediaStream = await (camera ? navigator.mediaDevices.getUserMedia({ audio: true, video: true }) : navigator.mediaDevices.getDisplayMedia({ audio: true, video: true }));
+        let mediaStream = await (camera ?
+            navigator.mediaDevices.getUserMedia({ audio: true, video: true }) :
+            navigator.mediaDevices.getDisplayMedia({
+                audio: true,
+                video: {
+                    width: { max: 1440 },
+                    height: { max: 900 }
+                }
+            })
+        );
         let name = mediaStream.getVideoTracks()[0]?.label || "?";
         let s = { spec: { id: 'BrowserStreamProvider_' + (++this._idSeq), name: name }, mediaStream: mediaStream, isCamera: camera };
         registerStream && this._streams.push(s);
