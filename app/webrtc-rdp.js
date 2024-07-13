@@ -633,8 +633,8 @@ class BrowserStreamProvider {
             navigator.mediaDevices.getDisplayMedia({
                 audio: true,
                 video: {
-                    width: { max: 1440 },
-                    height: { max: 900 }
+                    width: { max: 2048 },
+                    height: { max: 1280 }
                 }
             })
         );
